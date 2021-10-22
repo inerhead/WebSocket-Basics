@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const { socketController } = require('../Sockets/controller');
 // const { dbConnection } = require('../db/config');
 
 class Server {
@@ -42,14 +43,7 @@ class Server {
     }
 
     socket() {
-        this.io.on("connection", socket => { 
-            console.log('socket', socket.id);
-            socket.send("Hello! From BAck End");
-            socket.on('disconnect', (s) => {
-                console.log(`Disconnect from ${s}`);
-            });
-
-        });
+        this.io.on("connection", socketController);
     }
 
     listen() {
